@@ -1,11 +1,13 @@
 import pytest
 
+
 def test_list_check():
     '''
     1. Тест проверяет, что длина списка равна восьми
     '''
     this_list = [1, 2, 3, 4, 5, 6, 7, 8]
     assert len(this_list) == 8, 'It is not eight here :('
+
 
 def test_with_fixture(add_print):
     '''
@@ -15,15 +17,16 @@ def test_with_fixture(add_print):
     string = 'conca' + 'tenation'
     assert string == 'concatenation', 'Your concatenation is bad'
 
+
 @pytest.fixture
 def inner_fixture(request):
     '''
     Местная фикстура считает 5*5 и выводит сообщение после завершения теста
     '''
-    def final_test():
+    def final():
         again = 5 * 5
         print(f'Again {again}')
-    request.addfinalizer(final_test)
+    request.addfinalizer(final)
 
 
 def test_square_list(inner_fixture):
@@ -35,12 +38,14 @@ def test_square_list(inner_fixture):
     square_list = [i * i for i in start_list]
     assert square_list == [1, 4, 9, 16], 'Lists is not equal'
 
+
 def test_its_tuple():
     '''
     4. Тест проверяет, что у кортежа тип "tuple"
     '''
     that_tuple = ('I', 'am', 'Alena')
     assert type(that_tuple) == tuple, 'It is not tuple'
+
 
 def test_dict_for_qa(add_print):
     '''
@@ -49,6 +54,7 @@ def test_dict_for_qa(add_print):
     '''
     dictionary = {'dev': 'good', 'front': 'better', 'qa': 'the best'}
     assert dictionary.get('qa') == 'the best', 'Something went wrong, QA is the best'
+
 
 def test_copy_dict():
     '''
@@ -59,7 +65,7 @@ def test_copy_dict():
     assert original_dict == double_dict, 'Copying dictionaries dont work'
 
 
-class TestWrapper():
+class TestWrapper:
 
     def test_sets(self, fixture_for_class):
         '''
@@ -76,12 +82,14 @@ class TestWrapper():
         second_set = {1, 2, 3, 6, 7}
         assert first_set & second_set == {2, 3}, 'Intersection is wrong'
 
+
 def test_collections(fixture_for_collect_function):
     '''
     9. Тест проверяет, что наиболее часто встречаемый элемент из коллекции определен верно
     '''
     collect = fixture_for_collect_function()
     assert collect.most_common(1) == [('third', 6)]
+
 
 def test_last():
     '''
